@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<title> Home | Orders | Customers | <b> Products </b></title>
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
+</head>
+<body>
+	<div class="container">
+		<div ng-controller="productsController">
+		<h2>Add a new product</h2>
+		<div class="form-group">
+			<label>Product Name:</label>
+			<input type="text" ng-model="newProduct.name">
+			<label> Customer Name: </label>
+			<select name="name" id="" ng-model="newProduct.customer">
+				<option ng-repeat="customer in customers">{{ customer.name }}</option>
+			</select>
+			<input ng-click="addProduct()" type="submit" class="btn btn-primary" value="Add">
+		</div>
+		<table class="table table-bordered table-striped table-hovered">
+			<input type="text" ng-model="name_filter" placeholder="Search products..." class="pull-right">
+			<thead>
+				<tr>
+					<th>Product Name</th>
+					<th>Added By</th>
+					<th>Created Date</th>
+					<th>Action</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr ng-repeat="product in products | filter: name_filter | orderBy: 'product.created'">
+					<td><span ng-bind="product.name"></span></td>
+					<td><span ng-bind="product.customer"></span></td>
+					<td><span ng-bind="product.created | date: 'MMMM d yyyy'"></span></td>
+					<td><button ng-click="removeProduct(product.name)" class="btn btn-success">Delete</button></td>
+				</tr>
+			</tbody>
+		</table>
+
+	</div>
+</div>
+</body>
+</html>
